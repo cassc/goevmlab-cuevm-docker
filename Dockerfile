@@ -1,5 +1,5 @@
 FROM golang:latest AS golang-builder
-ENV BUILD_DATE=20241022
+ENV BUILD_DATE=20241119
 RUN git clone https://github.com/cassc/goevmlab --depth 1
 RUN cd goevmlab && \
   go build ./cmd/generic-fuzzer && \
@@ -12,8 +12,8 @@ RUN cd goevmlab && \
 RUN git clone https://github.com/ethereum/go-ethereum --depth 1
 RUN cd go-ethereum && go run build/ci.go install -static ./cmd/evm
 
-# FROM nvidia/cuda:12.3.0-devel-ubuntu22.04
-FROM nvidia/cuda:12.3.2-devel-ubuntu22.04
+
+FROM nvidia/cuda:12.4.1-cudnn-devel-ubuntu22.04
 
 # LABEL about the custom image
 LABEL maintainer="dancioc@nus.edu.sg"
